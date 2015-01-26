@@ -3,12 +3,12 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class GISParser {
 
 	private RandomAccessFile rafStream;
-	private LinkedList<Long> offsetList;
+	private ArrayList<Long> offsetList;
 	
 	private enum RequestType {
 		FEAT_ID, FEAT_NAME, FEAT_CLASS, STATE_ALPHA_CODE, STATE_NUM_CODE,
@@ -17,18 +17,18 @@ public class GISParser {
 		MAP_NAME, DATE_CREATED, DATE_EDITED
 	}
 	
-	public GISParser(File inFile) {
+	public GISParser(File GISFile) {
 		try {
-			rafStream = new RandomAccessFile(inFile, "r");
-			offsetList = new LinkedList<Long>();
+			rafStream = new RandomAccessFile(GISFile, "r");
+			offsetList = new ArrayList<Long>();
 			
 			//Ignoring offset of 0 as that is the header line in
 			//the GIS record file
 			while(rafStream.readLine() != null) {
-				offsetList.push(rafStream.getFilePointer());
+				offsetList.add(rafStream.getFilePointer());
 			}
 		} catch(FileNotFoundException e) {
-			System.err.println("Could not find file " + inFile.getName());
+			System.err.println("Could not find file " + GISFile.getName());
 			System.exit(1);
 		} catch(IOException e) {
 			System.err.println("IO error occured");
@@ -52,11 +52,20 @@ public class GISParser {
 		return grabInfo(offset, RequestType.ELEV_F);
 	}
 	
+	public ArrayList<Long> getOffsets() {
+		ArrayList<Long> cloneList = new ArrayList<Long>();
+		for(long x : offsetList) {
+			cloneList.add(x);
+		}
+		return cloneList;
+	}
+	
 	public void close() {
 		try {
 			rafStream.close();
 		} catch(IOException e) {}
 	}
+	
 	private String grabInfo(long offset, RequestType request) {
 		String info = null;
 		
