@@ -9,126 +9,82 @@ import java.util.ArrayList;
 
 public class GISCmdParser {
 
-	private RandomAccessFile cmdStream;
-	private FileWriter logStream;
-	private GISParser gisParser;
-	private int cmdNum;
+	private RandomAccessFile	cmdStream;
+	private String 				newln;
+	private String			 	currCmd;
+	private long 				currOffset;
 	
-	public GISCmdParser(File cmdFile, File gisFile, File logFile) {
+	public enum CommandType {
+		NO_CMD, SHOW_NAME, SHOW_LAT, SHOW_LONG, SHOW_ELEV, QUIT
+	}
+	
+	public GISCmdParser(File cmdFile) {
+		//Opening a RAF Stream for Command File
 		try {
 			cmdStream = new RandomAccessFile(cmdFile, "r");
 		} catch(FileNotFoundException e) {
 			System.err.println("Could not find file " + cmdFile.getName());
 			System.exit(1);
 		}
-		
-		try {
-			logStream = new FileWriter(logFile);
-		} catch(FileNotFoundException e) {
-			System.err.println("Could not find file " + logFile.getName());
-			System.exit(1);
-		} catch(IOException e) {
-			System.err.println("IO error occured");
-			System.exit(1);
-		}
-		
-		gisParser = new GISParser(gisFile);
-		cmdNum = 0;
-		
-		printGISOffsets();
-		
-		while(parseCmdAndExecute()){}
-		
+		newln = System.getProperty("line.separator");
+	}
+	
+	public void close() {
 		try{
 			cmdStream.close();
 		} catch(IOException e) {}
-		
-		gisParser.close();
 	}
 	
-	private void printGISOffsets() {
-		ArrayList<Long> offsetList = gisParser.getOffsets();
-		
-		writeToLog("GIS data file contains the following records:\n\n");
-		
-		int			half = offsetList.size() / 2;
-		int			arrayOffset = 0;
-		Formatter	f = new Formatter();
-		
-		if(offsetList.size() % 2 != 0) {
-			arrayOffset = 1;
+	public void findNextCommand() {		
+		while(true) {
+			String line = null;
+			try {
+				line = cmdStream.readLine();
+			} catch(IOException e) {
+				System.err.println("IO error occured");
+				System.exit(1);
+			}
+			
+			if(line.contains(";") || line == null) continue;
+			
+			Scanner		cmdScanner = new Scanner(line);			
+			
+			//Parsing the command and seeing if the offset is available
+			currCmd = cmdScanner.next();
+			if(cmdScanner.hasNextLong()) {
+				currOffset = cmdScanner.nextLong();
+			}
+			else currOffset = 0;
+			cmdScanner.close();
+			
+			break;
 		}
-		
-		for(int i = 0; i < half; i++) {
-			f.format("\t%d\t%d\n",
-					offsetList.get(i), offsetList.get(i + half + arrayOffset));
-			writeToLog(f.toString());
-			f.flush();
-		}
-		
-		if(arrayOffset == 1) {
-			f.format("\t%d\n", offsetList.get(half));
-			writeToLog(f.toString());
-			f.flush();
-		}
-		
-		f.close();
-		writeToLog("\n");	
 	}
 	
-	private boolean parseCmdAndExecute() {
-		String line = null;
-		try {
-			line = cmdStream.readLine();
-		} catch(IOException e) {
-			System.err.println("IO error occured");
-			System.exit(1);
+	public CommandType getCurrCmd() {
+		if(currCmd.contentEquals("show_name")) {
+			return CommandType.SHOW_NAME;
 		}
-		
-		if(line.contains(";") || line == null) return true;
-		
-		String		cmd = null;
-		long		offset = 0;
-		boolean		proceed = true;
-		Scanner		cmdScanner = new Scanner(line);
-		Formatter 	f = new Formatter();
-		
-		
-		//Parsing the command and seeing if the offset is available
-		cmd = cmdScanner.next();
-		if(cmdScanner.hasNextLong()) {
-			offset = cmdScanner.nextLong();
+		else if(currCmd.contentEquals("show_latitude")) {
+			return CommandType.SHOW_LAT;
 		}
-		cmdScanner.close();
-		
-		//Writing to the log the original command and it's number
-		cmdNum++;
-		f.format("%d:\t%s\n", cmdNum, line);
-		writeToLog(f.toString());
-		f.flush();
-		
-		//Executing the requested command and formating it
-		if(cmd.contentEquals("show_name")) {
-			f.format("\t%s\n", gisParser.getName(offset));
+		else if(currCmd.contentEquals("show_longitude")) {
+			return CommandType.SHOW_LONG;
 		}
-		else if(cmd.contentEquals("show_latitude")) {
-			f.format("\t%s\n", gisParser.getLatitude(offset));
+		else if(currCmd.contentEquals("show_elevation")) {
+			return CommandType.SHOW_ELEV;
 		}
-		else if(cmd.contentEquals("show_longitude")) {
-			f.format("\t%s\n", gisParser.getLongitude(offset));
+		else if(currCmd.contentEquals("quit")) {
+			return CommandType.QUIT;
 		}
-		else if(cmd.contentEquals("show_elevation")) {
-			f.format("\t%s\n", gisParser.getElevation(offset));
+		//Should never execute this line; just in case
+		else {
+			return CommandType.NO_CMD;
 		}
-		else if(cmd.contentEquals("quit")) {
-			f.format("\tExiting\n");
-			proceed = false;
-		}
-		
-		//Writing the response to the log
-		writeToLog(f.toString());
-		f.close();
-		return proceed;
+	}
+	
+	public long getCurrOffset() {
+		return currOffset;
 	}
 	
 	private void writeToLog(String line) {

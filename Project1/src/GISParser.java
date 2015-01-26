@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GISParser {
 
 	private RandomAccessFile rafStream;
-	private ArrayList<Long> offsetList;
+	private String newln;
 	
 	private enum RequestType {
 		FEAT_ID, FEAT_NAME, FEAT_CLASS, STATE_ALPHA_CODE, STATE_NUM_CODE,
@@ -20,20 +20,12 @@ public class GISParser {
 	public GISParser(File GISFile) {
 		try {
 			rafStream = new RandomAccessFile(GISFile, "r");
-			offsetList = new ArrayList<Long>();
-			
-			//Ignoring offset of 0 as that is the header line in
-			//the GIS record file
-			while(rafStream.readLine() != null) {
-				offsetList.add(rafStream.getFilePointer());
-			}
 		} catch(FileNotFoundException e) {
 			System.err.println("Could not find file " + GISFile.getName());
 			System.exit(1);
-		} catch(IOException e) {
-			System.err.println("IO error occured");
-			System.exit(1);
 		}
+		
+		newln = System.getProperty("line.separator");
 	}
 	
 	public String getName(long offset) {
@@ -52,7 +44,7 @@ public class GISParser {
 		return grabInfo(offset, RequestType.ELEV_F);
 	}
 	
-	public ArrayList<Long> getOffsets() {
+	public ArrayList getOffsets() {
 		ArrayList<Long> cloneList = new ArrayList<Long>();
 		for(long x : offsetList) {
 			cloneList.add(x);
