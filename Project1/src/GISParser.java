@@ -3,12 +3,10 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class GISParser {
 
-	private RandomAccessFile rafStream;
-	private String newln;
+	private RandomAccessFile gisStream;
 	
 	private enum RequestType {
 		FEAT_ID, FEAT_NAME, FEAT_CLASS, STATE_ALPHA_CODE, STATE_NUM_CODE,
@@ -17,15 +15,17 @@ public class GISParser {
 		MAP_NAME, DATE_CREATED, DATE_EDITED
 	}
 	
-	public GISParser(File GISFile) {
+	public GISParser(File gisFile) {
 		try {
-			rafStream = new RandomAccessFile(GISFile, "r");
+			gisStream = new RandomAccessFile(gisFile, "r");
 		} catch(FileNotFoundException e) {
-			System.err.println("Could not find file " + GISFile.getName());
+			System.err.println("Could not find file " + gisFile.getName());
 			System.exit(1);
 		}
-		
-		newln = System.getProperty("line.separator");
+	}
+	
+	public String getFeatID(long offset) {
+		return grabInfo(offset, RequestType.FEAT_ID);
 	}
 	
 	public String getName(long offset) {
@@ -44,17 +44,9 @@ public class GISParser {
 		return grabInfo(offset, RequestType.ELEV_F);
 	}
 	
-	public ArrayList getOffsets() {
-		ArrayList<Long> cloneList = new ArrayList<Long>();
-		for(long x : offsetList) {
-			cloneList.add(x);
-		}
-		return cloneList;
-	}
-	
 	public void close() {
 		try {
-			rafStream.close();
+			gisStream.close();
 		} catch(IOException e) {}
 	}
 	
@@ -65,15 +57,15 @@ public class GISParser {
 			//Testing to see if the offset is an appropriate offset
 			if(offset < 0) return "Offset not positive";
 			if(!offsetExist(offset)) {
-				if(offset > rafStream.length()) {
+				if(offset > gisStream.length()) {
 					return "Offset too large";
 				}
 				else return "Unaligned offset";
 			}
 			
 			//Grabbing the requested line at the offset
-			rafStream.seek(offset);
-			info = rafStream.readLine();
+			gisStream.seek(offset);
+			info = gisStream.readLine();
 			
 		} catch(IOException e) {
 			System.err.println("IO error occured");
@@ -96,15 +88,19 @@ public class GISParser {
 		return info;
 	}
 	
-	//Come back to this as to what to do if given an offset of zero for the first line
 	private boolean offsetExist(long offset) {
+		char newln = '\0';
 		
-		for(long x : offsetList) {
-			if(x == offset) return true;
-			else if(x > offset) return false;
+		try {
+			gisStream.seek(offset - 2);
+			newln = gisStream.readChar();
+		} catch(IOException e) {
+			System.err.println("IO error occured");
+			System.exit(1);
 		}
 		
-		return false;
+		if(newln == '\n') return true;
+		else return false;
 	}
 
 }

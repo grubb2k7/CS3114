@@ -1,16 +1,12 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.FileWriter;
 import java.io.File;
 import java.util.Scanner;
-import java.util.Formatter;
-import java.util.ArrayList;
 
 public class GISCmdParser {
 
 	private RandomAccessFile	cmdStream;
-	private String 				newln;
 	private String			 	currCmd;
 	private long 				currOffset;
 	
@@ -26,7 +22,6 @@ public class GISCmdParser {
 			System.err.println("Could not find file " + cmdFile.getName());
 			System.exit(1);
 		}
-		newln = System.getProperty("line.separator");
 	}
 	
 	public void close() {
@@ -35,7 +30,7 @@ public class GISCmdParser {
 		} catch(IOException e) {}
 	}
 	
-	public void findNextCommand() {		
+	public void searchCmd() {		
 		while(true) {
 			String line = null;
 			try {
@@ -83,18 +78,11 @@ public class GISCmdParser {
 		}
 	}
 	
+	public String toString() {
+		return currCmd;
+	}
+	
 	public long getCurrOffset() {
 		return currOffset;
 	}
-	
-	private void writeToLog(String line) {
-		try {
-			logStream.flush();
-			logStream.write(line);
-		} catch(IOException e) {
-			System.err.println("IO error occured");
-			System.exit(1);
-		}
-	}
-
 }
