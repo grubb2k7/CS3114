@@ -36,7 +36,7 @@ public class GISCmdParser {
 			try {
 				line = cmdStream.readLine();
 			} catch(IOException e) {
-				System.err.println("IO error occured");
+				System.err.println("IO error occured 6");
 				System.exit(1);
 			}
 			

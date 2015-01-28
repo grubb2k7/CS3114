@@ -50,7 +50,7 @@ public class Project1 {
 		try {
 			logStream = new FileWriter(logFile);
 		} catch(IOException e) {
-			System.err.println("IO error occured");
+			System.err.println("IO error occured 2");
 			System.exit(1);
 		}
 		
@@ -66,14 +66,13 @@ public class Project1 {
 			while((testLn = gisStream.readLine()) != null) {
 				offset = gisStream.getFilePointer();
 				f.format("\t%d\t%s\n", offset, gisParser.getFeatID(offset));
-				writeToLog(f.toString());
-				f.flush();
 			}
+			writeToLog(f.toString());
 			writeToLog("\n");
 			gisStream.close();
 			f.close();
 		} catch(IOException e) {
-			System.err.println("IO error occured");
+			System.err.println("IO error occured 3");
 			System.exit(1);
 		}
 		
@@ -137,7 +136,7 @@ public class Project1 {
 			logStream.flush();
 			logStream.write(line);
 		} catch(IOException e) {
-			System.err.println("IO error occured");
+			System.err.println("IO error occured 1");
 			System.exit(1);
 		}
 	}
