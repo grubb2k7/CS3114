@@ -60,13 +60,14 @@ public class Project1 {
 			RandomAccessFile gisStream = new RandomAccessFile(gisFile, "r");			
 			Formatter f = new Formatter();
 			long offset;
-			gisStream.readLine();
+			String testLn = gisStream.readLine();
 			
 			//Going through GIS file and grabbing the offset and ID of each offset
-			while(gisStream.readLine() != null) {
+			while((testLn = gisStream.readLine()) != null) {
 				offset = gisStream.getFilePointer();
-				f.format("\t%d\t%d\n", offset, gisParser.getFeatID(offset));
+				f.format("\t%d\t%s\n", offset, gisParser.getFeatID(offset));
 				writeToLog(f.toString());
+				f.flush();
 			}
 			writeToLog("\n");
 			gisStream.close();
@@ -85,6 +86,9 @@ public class Project1 {
 		while(cmd != GISCmdParser.CommandType.QUIT) {
 			offset = cmdParser.getCurrOffset();
 			writeToLog(interpretCmd(cmd, offset));
+			
+			cmdParser.searchCmd();
+			cmd = cmdParser.getCurrCmd();
 		}
 		
 		writeToLog(interpretCmd(cmd, 0));
@@ -123,9 +127,9 @@ public class Project1 {
 			f.close();
 			return null;
 		}		
+		firstLn += f.toString();
 		f.close();
-		
-		return firstLn + f.toString();
+		return firstLn;
 	}
 	
 	static void writeToLog(String line) {

@@ -57,7 +57,7 @@ public class GISParser {
 			//Testing to see if the offset is an appropriate offset
 			if(offset < 0) return "Offset not positive";
 			if(!offsetExist(offset)) {
-				if(offset > gisStream.length()) {
+				if(offset >= gisStream.length()) {
 					return "Offset too large";
 				}
 				else return "Unaligned offset";
@@ -71,6 +71,8 @@ public class GISParser {
 			System.err.println("IO error occured");
 			System.exit(1);
 		}
+		
+		if(info == null) return "Offset too large";
 		
 		Scanner parser = new Scanner(info);
 		parser.useDelimiter("|");
@@ -89,11 +91,12 @@ public class GISParser {
 	}
 	
 	private boolean offsetExist(long offset) {
-		char newln = '\0';
+		char newln = '\0'; 
+		
 		
 		try {
-			gisStream.seek(offset - 2);
-			newln = gisStream.readChar();
+			gisStream.seek(offset-1);
+			newln = (char)gisStream.readByte();
 		} catch(IOException e) {
 			System.err.println("IO error occured");
 			System.exit(1);
