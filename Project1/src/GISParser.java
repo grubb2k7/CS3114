@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Formatter;
 
 public class GISParser {
 
@@ -33,11 +34,11 @@ public class GISParser {
 	}
 	
 	public String getLatitude(long offset) {
-		return grabInfo(offset, RequestType.PRIM_LAT);
+		return formatDMS(grabInfo(offset, RequestType.PRIM_LAT_DMS));
 	}
 	
 	public String getLongitude(long offset) {
-		return grabInfo(offset, RequestType.PRIM_LONG);
+		return formatDMS(grabInfo(offset, RequestType.PRIM_LONG_DMS));
 	}
 	
 	public String getElevation(long offset) {
@@ -101,4 +102,32 @@ public class GISParser {
 		else return false;
 	}
 
+	private String formatDMS(String dms) {
+		 	String direction, seconds, minutes, degrees;
+		 	int dmsLength = dms.length();
+		 	
+		 	direction = dms.substring(dmsLength-1);
+		 	seconds = dms.substring(dmsLength-3, dmsLength-1);
+		 	minutes = dms.substring(dmsLength-5,dmsLength-3);
+		 	degrees = dms.substring(0, dmsLength-5);
+		 	
+		 	Formatter f = new Formatter();
+		 	
+		 	switch(direction) {
+		 	case "N": direction = "North";
+		 		break;
+		 	case "S": direction = "South";
+		 		break;
+		 	case "E": direction = "East";
+		 		break;
+		 	case "W": direction = "West";
+		 		break;
+		 	}
+		 	
+		 	f.format("%sd %sm %ss %s", degrees, minutes, seconds, direction);
+		 	String returnStr = f.toString();
+		 	f.close();
+		 	
+		 	return returnStr;
+	}
 }

@@ -60,12 +60,12 @@ public class Project1 {
 			RandomAccessFile gisStream = new RandomAccessFile(gisFile, "r");			
 			Formatter f = new Formatter();
 			long offset;
-			String testLn = gisStream.readLine();
 			
 			//Going through GIS file and grabbing the offset and ID of each offset
-			while((testLn = gisStream.readLine()) != null) {
+			while((gisStream.readLine()) != null) {
+				if(gisStream.getFilePointer() >= gisStream.length()) break;
 				offset = gisStream.getFilePointer();
-				f.format("\t%d\t%s\n", offset, gisParser.getFeatID(offset));
+				f.format("\t%12d\t%s\n", offset, gisParser.getFeatID(offset));
 			}
 			writeToLog(f.toString());
 			writeToLog("\n");
@@ -101,23 +101,26 @@ public class Project1 {
 	
 	static String interpretCmd(GISCmdParser.CommandType cmd, long offset) {
 		Formatter f = new Formatter();
-		String firstLn;
+		String firstLn = null;
 		cmdNum++;
-		f.format("%d:\t%s\n", cmdNum, cmdParser.toString());
-		firstLn = f.toString();
-		f.flush();
+		if(cmd == GISCmdParser.CommandType.QUIT) {
+			f.format("%4d:\t%s\n", cmdNum, cmdParser.toString());
+		}
+		else{
+			f.format("%4d:\t%s\t%d\n", cmdNum, cmdParser.toString(), offset);
+		}
 		switch(cmd) {
 		case SHOW_NAME:
 			f.format("\t\t%s\n", gisParser.getName(offset));
 			break;
 		case SHOW_LAT:
-			f.format("\t\t%s\n", gisParser.getName(offset));
+			f.format("\t\t%s\n", gisParser.getLatitude(offset));
 			break;
 		case SHOW_LONG:
-			f.format("\t\t%s\n", gisParser.getName(offset));
+			f.format("\t\t%s\n", gisParser.getLongitude(offset));
 			break;
 		case SHOW_ELEV:
-			f.format("\t\t%s\n", gisParser.getName(offset));
+			f.format("\t\t%s\n", gisParser.getElevation(offset));
 			break;
 		case QUIT:
 			f.format("\t\tExiting\n");
@@ -126,7 +129,7 @@ public class Project1 {
 			f.close();
 			return null;
 		}		
-		firstLn += f.toString();
+		firstLn = f.toString();
 		f.close();
 		return firstLn;
 	}
