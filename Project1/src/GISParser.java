@@ -123,7 +123,7 @@ public class GISParser {
 		
 		try {
 			//Testing to see if the offset is an appropriate offset
-			if(offset < 0)						return "Offset not positive";
+			if(offset < 0)						return "Offset is not positive";
 			if(offset == 0)						return "Unaligned offset";
 			if(offset >= gisStream.length())	return "Offset too large";
 			if(!offsetExist(offset))			return "Unaligned offset";
@@ -184,11 +184,17 @@ public class GISParser {
 	private String formatDMS(String dms) {
 		 	String direction, seconds, minutes, degrees;
 		 	int dmsLength = dms.length();
+		 	int s, m, d;
 		 	
 		 	direction = dms.substring(dmsLength-1);
 		 	seconds = dms.substring(dmsLength-3, dmsLength-1);
 		 	minutes = dms.substring(dmsLength-5,dmsLength-3);
 		 	degrees = dms.substring(0, dmsLength-5);
+		 	
+		 	//Getting rid of the leading zeros by converting strings to an integer
+		 	s = Integer.parseInt(seconds);
+		 	m = Integer.parseInt(minutes);
+		 	d = Integer.parseInt(degrees);
 		 	
 		 	Formatter f = new Formatter();
 		 	
@@ -203,7 +209,7 @@ public class GISParser {
 		 		break;
 		 	}
 		 	
-		 	f.format("%sd %sm %ss %s", degrees, minutes, seconds, direction);
+		 	f.format("%dd %dm %ds %s", d, m, s, direction);
 		 	String returnStr = f.toString();
 		 	f.close();
 		 	
