@@ -1,0 +1,103 @@
+GIS data file contains the following records:
+
+	         265	9036
+	         383	27306
+	         545	401
+	         704	1500
+	         855	26530
+	        1011	8950
+	        1182	25468
+	        1346	1261
+	        1479	13210
+	        1643	32527
+	        1806	34817
+	        1961	34011
+	        2125	6259
+	        2289	26855
+	        2449	6362
+	        2610	5416
+	        2785	13714
+	        2942	12079
+	        3111	30720
+	        3274	10858
+	        3437	25663
+	        3602	3334
+	        3784	3516
+	        3938	36430
+	        4095	34588
+	        4261	30578
+	        4423	12398
+	        4587	5971
+	        4748	3520
+	        4904	34867
+	        5059	22057
+	        5178	26990
+	        5336	27265
+	        5495	3798
+	        5663	8984
+	        5829	9045
+	        5996	26361
+	        6152	32612
+	        6309	11803
+	        6434	9481
+	        6606	10138
+	        6729	5075
+	        6895	1448
+	        7060	32341
+	        7221	23946
+	        7392	10173
+	        7553	10534
+	        7724	25698
+	        7885	11432
+	        8047	8890
+	        8207	35887
+	        8359	21596
+	        8528	25947
+	        8687	4499
+	        8858	5970
+	        8976	32150
+	        9127	9803
+	        9292	8080
+	        9454	12758
+	        9613	11397
+	        9790	25452
+	        9970	23988
+
+   1:	show_elevation	5178
+		Elevation not given
+   2:	show_longitude	8363
+		Unaligned offset
+   3:	show_elevation	7889
+		Unaligned offset
+   4:	show_elevation	16
+		Unaligned offset
+   5:	show_elevation	6438
+		Unaligned offset
+   6:	show_name	-245
+		Offset not positive
+   7:	show_longitude	7557
+		Unaligned offset
+   8:	show_longitude	3938
+		109d 05m 04s West
+   9:	show_longitude	8211
+		Unaligned offset
+  10:	show_elevation	8051
+		Unaligned offset
+  11:	show_name	7728
+		Unaligned offset
+  12:	show_name	855
+		Blue River
+  13:	show_elevation	5340
+		Unaligned offset
+  14:	show_name	6313
+		Unaligned offset
+  15:	show_latitude	10567
+		Offset too large
+  16:	show_latitude	3111
+		33d 24m 42s North
+  17:	show_name	2449
+		Jaralosa Draw
+  18:	show_longitude	6899
+		Unaligned offset
+  19:	quit
+		Exiting

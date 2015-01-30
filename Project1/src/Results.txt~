@@ -1,0 +1,103 @@
+GIS data file contains the following records:
+
+	         265	9036
+	         383	27306
+	         545	401
+	         704	1500
+	         855	26530
+	        1011	8950
+	        1182	25468
+	        1346	1261
+	        1479	13210
+	        1643	32527
+	        1806	34817
+	        1961	34011
+	        2125	6259
+	        2289	26855
+	        2449	6362
+	        2610	5416
+	        2785	13714
+	        2942	12079
+	        3111	30720
+	        3274	10858
+	        3437	25663
+	        3602	3334
+	        3784	3516
+	        3938	36430
+	        4095	34588
+	        4261	30578
+	        4423	12398
+	        4587	5971
+	        4748	3520
+	        4904	34867
+	        5059	22057
+	        5178	26990
+	        5340	27265
+	        5499	3798
+	        5667	8984
+	        5833	9045
+	        6000	26361
+	        6156	32612
+	        6313	11803
+	        6438	9481
+	        6610	10138
+	        6733	5075
+	        6899	1448
+	        7064	32341
+	        7225	23946
+	        7396	10173
+	        7557	10534
+	        7728	25698
+	        7889	11432
+	        8051	8890
+	        8211	35887
+	        8363	21596
+	        8532	25947
+	        8691	4499
+	        8862	5970
+	        8980	32150
+	        9131	9803
+	        9296	8080
+	        9458	12758
+	        9617	11397
+	        9794	25452
+	        9974	23988
+
+   1:	show_elevation	5178
+		4593
+   2:	show_longitude	8363
+		109d 08m 56s West
+   3:	show_elevation	7889
+		6781
+   4:	show_elevation	16
+		Unaligned offset
+   5:	show_elevation	6438
+		5712
+   6:	show_name	-245
+		Offset not positive
+   7:	show_longitude	7557
+		109d 02m 24s West
+   8:	show_longitude	3938
+		109d 05m 04s West
+   9:	show_longitude	8211
+		109d 07m 31s West
+  10:	show_elevation	8051
+		5348
+  11:	show_name	7728
+		Apache Creek
+  12:	show_name	855
+		Blue River
+  13:	show_elevation	5340
+		7510
+  14:	show_name	6313
+		Stateline Dam
+  15:	show_latitude	10567
+		Offset too large
+  16:	show_latitude	3111
+		33d 24m 42s North
+  17:	show_name	2449
+		Jaralosa Draw
+  18:	show_longitude	6899
+		108d 55m 34s West
+  19:	quit
+		Exiting
