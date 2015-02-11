@@ -102,16 +102,34 @@ public class BST<T extends Comparable<? super T>> {
     
     private void insertNodePool(BinaryNode node, BinaryNode sRoot) {
     	if(node == null || pCurSize == pSize) return;
+    	//Case 1: if the pool is empty
     	if(sRoot == null) {
     		sRoot = node;
     		pCurSize++;
+    		node.left = null;
+    		node.right = null;
     	}
-    	
-    	
-    	
-    	int compareResult1 = node.element.compareTo(sRoot.element);
-    	int compareResult2 = node.element.compareTo(sRoot.right.element);
-    	if(compareResult < 0)
+    	//Case 2:	if the node can fit in between the elements
+    	//			(assuming pool already has a node)
+    	else if(sRoot.right != null) {
+    		int compareResult1 = node.element.compareTo(sRoot.element);
+        	int compareResult2 = node.element.compareTo(sRoot.right.element);
+        	if(compareResult1 > 0 && compareResult2 < 0) {
+        		node.right = sRoot.right;
+        		node.left = null;
+        		sRoot.right = node;
+        	}
+        	else insertNodePool(node, sRoot.right);
+        	pCurSize++;
+    	}
+    	//Case 3:	if we are at the end of the pool
+    	else {
+    		sRoot.right = node;
+    		node.right = null;
+    		node.left = null;
+    		pCurSize++;
+    	}
+    	return;
     }
 
     // Return pointer to matching data element, or null if no matching
