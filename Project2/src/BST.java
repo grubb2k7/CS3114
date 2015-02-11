@@ -131,6 +131,33 @@ public class BST<T extends Comparable<? super T>> {
     	}
     	return;
     }
+    
+    private BinaryNode retrieveNodePool(T x, BinaryNode sRoot) {
+    	if(x == null || sRoot == null) return null;
+    	
+    	int compareResult1 = x.compareTo(sRoot.element);
+    	int compareResult2 = (sRoot.right != null) ?
+    			x.compareTo(sRoot.right.element) : -1;
+    	
+    	//Case1: if sRoot is the first node in the pool
+    	if(sRoot == pool && compareResult1 == 0) {
+    		pool = sRoot.right;
+    		sRoot.right = null;
+    		return sRoot;
+    	}
+    	//Case2: if sRoot.right is equivalent to x re-link pool
+    	//		 and return sRoot.right. compareResult2 == 0
+    	//		 means that a right node exists.
+    	else if(compareResult2 == 0) {
+    		BinaryNode tempNode = sRoot.right;
+    		sRoot.right = tempNode.right;
+    		tempNode.right = null;
+    		return tempNode;
+    	}
+    	else {
+    		return retrieveNodePool(x, sRoot.right);
+    	}
+    }
 
     // Return pointer to matching data element, or null if no matching
     // element exists in the BST.  "Matching" should be tested using the
