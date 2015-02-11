@@ -143,6 +143,7 @@ public class BST<T extends Comparable<? super T>> {
     	if(sRoot == pool && compareResult1 == 0) {
     		pool = sRoot.right;
     		sRoot.right = null;
+    		pCurSize--;
     		return sRoot;
     	}
     	//Case2: if sRoot.right is equivalent to x re-link pool
@@ -152,6 +153,7 @@ public class BST<T extends Comparable<? super T>> {
     		BinaryNode tempNode = sRoot.right;
     		sRoot.right = tempNode.right;
     		tempNode.right = null;
+    		pCurSize--;
     		return tempNode;
     	}
     	else {
@@ -175,7 +177,10 @@ public class BST<T extends Comparable<? super T>> {
     // Post:  the binary tree contains x
     public boolean insert( T x ) {
     	if(x == null) return false;
-    	return insert(x, root);
+    	BinaryNode poolNode = retrieveNodePool(x, pool);
+    	
+    	if(poolNode != null) return insert(poolNode, root);
+    	else				 return insert(x, root);
     }
     
     private boolean insert(T x, BinaryNode sRoot) {
@@ -185,6 +190,19 @@ public class BST<T extends Comparable<? super T>> {
     	}
     	
     	int compareResult = x.compareTo(sRoot.element);
+    	
+    	if(compareResult < 0)	insert(x, sRoot.left);
+    	if(compareResult > 0)	insert(x, sRoot.right);
+    	else					return false;
+    }
+    
+    private boolean insert(BinaryNode x, BinaryNode sRoot) {
+    	if(sRoot == null) {
+    		sRoot = x;
+    		return true;
+    	}
+    	
+    	int compareResult = x.element.compareTo(sRoot.element);
     	
     	if(compareResult < 0)	insert(x, sRoot.left);
     	if(compareResult > 0)	insert(x, sRoot.right);
@@ -220,6 +238,8 @@ public class BST<T extends Comparable<? super T>> {
 			targetNode		= rMin;
 			rMinParent.left	= null;
 		}
+    	
+    	insertNodePool(targetNode, pool);
 		return true;
     	
     	
@@ -251,7 +271,7 @@ public class BST<T extends Comparable<? super T>> {
     // Pre:   none
     // Post:  the binary tree contains no elements
     public void clear( ) {
-    	
+    	root = null;
     }
 
     // Return true iff other is a BST that has the same physical structure
@@ -261,12 +281,25 @@ public class BST<T extends Comparable<? super T>> {
     //           on the same data type as the tree on which equals() is invoked
     // Post:  both binary trees are unchanged
     public boolean equals(Object other) {
-    	if(other == null) return false;
+    	if(other == null || this.equals(other)) return false;
     	
+    	BST<T> otherTree = 
     }
 
+    private boolean equals()
     // Return number of levels in the tree.  (An empty tree has 0 levels.)
     // Pre:   tree is a valid BST<> object
     // Post:  the binary tree is unchanged
-    public int levels() { . . . }
+    public int levels() {
+    	return findMaxlevel(0, 0, root);
+    }
+    
+    private int findMaxlevel(int cur, int max, BinaryNode sRoot) {
+    	if(sRoot == null) return max;
+    	
+    	cur++;
+    	max = (cur > max) ? cur : max;
+    	max = findMaxlevel(cur, max, sRoot.left);
+    	return findMaxlevel(cur, max, sRoot.right);    	
+    }
 }
