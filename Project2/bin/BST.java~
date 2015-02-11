@@ -56,20 +56,18 @@ public class BST<T extends Comparable<? super T>> {
        BinaryNode right;    // pointer to the right child
     }
 
-    BinaryNode 	root;       // pointer to root node, if present
-    BinaryNode 	pool;       // pointer to first node in the pool
-    int        	pSize;      // size limit for node pool
-    private int	pCurSize;	// current pool size;
+    BinaryNode root;        // pointer to root node, if present
+    BinaryNode pool;        // pointer to first node in the pool
+    int        pSize;       // size limit for node pool
 
     // Initialize empty BST with no node pool.
     // Pre:   none
     // Post:  (in the new tree)
     //        root == null, pool == null, pSize = 0
     public BST( ) {
-    	root	 = null;
-    	pool	 = null;
-    	pSize	 = 0;
-    	pCurSize = 0;
+    	root = null;
+    	pool = null;
+    	pSize = 0;
     }
 
     // Initialize empty BST with a node pool of up to pSize nodes.
@@ -77,10 +75,9 @@ public class BST<T extends Comparable<? super T>> {
     // Post:  (in the new tree)
     //        root == null, pool = null, pSize == Sz 
     public BST( int Sz ) {
-    	root	 = null;
-    	pool	 = null;
-    	pSize	 = Sz;
-    	pCurSize = 0;
+    	root = null;
+    	pool = null;
+    	pSize = Sz;
     }
 
     // Return true iff BST contains no nodes.
@@ -89,125 +86,39 @@ public class BST<T extends Comparable<? super T>> {
     public boolean isEmpty( ) {
     	return root == null || (root.left == null && root.right == null);
     }
-    
-    private BinaryNode findNode(T x, BinaryNode sRoot) {
-    	if(sRoot == null || x == null) return null;
-    	
-    	int compareResult = x.compareTo(sRoot.element);
-    	
-    	if(compareResult < 0)	   return findNode(x, sRoot.left);
-    	else if(compareResult > 0) return findNode(x, sRoot.right);
-    	else					   return sRoot;
-    }
-    
-    private void insertNodePool(BinaryNode node, BinaryNode sRoot) {
-    	if(node == null || pCurSize == pSize) return;
-    	if(sRoot == null) {
-    		sRoot = node;
-    		pCurSize++;
-    	}
-    	
-    	
-    	
-    	int compareResult1 = node.element.compareTo(sRoot.element);
-    	int compareResult2 = node.element.compareTo(sRoot.right.element);
-    	if(compareResult < 0)
-    }
 
     // Return pointer to matching data element, or null if no matching
     // element exists in the BST.  "Matching" should be tested using the
     // data object's compareTo() method.
     // Pre:  x is null or points to a valid object of type T
     // Post: the binary tree is unchanged
-    public T find( T x ) {
-    	if(x == null) return null;
-    	return findNode(x, root).element;
-    }
-    
+    public T find( T x ) { . . . }
+
     // Insert element x into BST, unless it is already stored.  Return true
     // if insertion is performed and false otherwise.
     // Pre:   x is null or points to a valid object of type T
     // Post:  the binary tree contains x
     public boolean insert( T x ) {
-    	if(x == null) return false;
-    	return insert(x, root);
-    }
-    
-    private boolean insert(T x, BinaryNode sRoot) {
-    	if(sRoot == null) {
-    		sRoot.element = x;
-    		return true;
-    	}
     	
-    	int compareResult = x.compareTo(sRoot.element);
-    	
-    	if(compareResult < 0)	insert(x, sRoot.left);
-    	if(compareResult > 0)	insert(x, sRoot.right);
-    	else					return false;
     }
-    
+
     // Delete element matching x from the BST, if present.  Return true if
     // matching element is removed from the tree and false otherwise.
     // Pre:   x is null or points to a valid object of type T
     // Post:  the binary tree does not contain x
-    public boolean remove( T x ) {
-    	if(x == null) return false;
-    	
-    	BinaryNode targetNode = findNode(x, root);
-    	
-    	if(targetNode == null) return false;
-    	
-    	if(targetNode.right == null && targetNode.left == null) {
-    		targetNode = null;
-		}
-		//Case 2: 1 leaf
-		else if(targetNode.right == null ^ targetNode.left == null) {
-			if(targetNode.right == null)	targetNode = targetNode.left;
-			else							targetNode = targetNode.right;
-		}
-		//Case 3: 2 leaves
-		else {
-			BinaryNode rMinParent	= findRMinParent(targetNode);
-			BinaryNode rMin			= rMinParent.left;
-			
-			rMin.left		= targetNode.left;
-			rMin.right		= targetNode.right;
-			targetNode		= rMin;
-			rMinParent.left	= null;
-		}
-		return true;
-    	
-    	
-    }
-    
-    private BinaryNode findRMinParent(BinaryNode sRoot) {
-    	BinaryNode sRootLeft = sRoot.left;
-    	
-    	if(sRootLeft.left == null && sRootLeft.right == null)
-    		return sRoot;
-    	else return findRMinParent(sRootLeft);
-    }
+    public boolean remove( T x ) { . . . }
 
     // Remove from the tree all values y such that y > x, according to
     // compareTo().
     // Pre:   x is null or points to a valid object of type T
     // Post:  if the tree contains no value y such that compareTo()
     //           indicates y > x
-    public void cap( T x ) {
-    	if(x == null) return;
-    	
-    	BinaryNode targetNode = findNode(x, root);
-    	if(targetNode == null) return;
-    	targetNode.left		= null;
-    	targetNode.right	= null;
-    }    
+    public void cap( T x ) { . . . } 
 
     // Return the tree to an empty state.
     // Pre:   none
     // Post:  the binary tree contains no elements
-    public void clear( ) {
-    	
-    }
+    public void clear( ) { . . . }
 
     // Return true iff other is a BST that has the same physical structure
     // and stores equal data values in corresponding nodes.  "Equal" should
