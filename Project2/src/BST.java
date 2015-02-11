@@ -280,13 +280,25 @@ public class BST<T extends Comparable<? super T>> {
     // Pre:   other is null or points to a valid BST<> object, instantiated
     //           on the same data type as the tree on which equals() is invoked
     // Post:  both binary trees are unchanged
-    public boolean equals(Object other) {
-    	if(other == null || this.equals(other)) return false;
+    @SuppressWarnings("unchecked")
+	public boolean equals(Object other) {
+    	if(other == null || !(other instanceof BST<?>)) return false;
     	
-    	BST<T> otherTree = 
+    	return equals(root, ((BST<T>)other).root);
     }
 
-    private boolean equals()
+    private boolean equals(BinaryNode sRoot1, BinaryNode sRoot2) {
+    	if(sRoot1 == null && sRoot2 == null) return true;
+    	else 								 return false;
+    	int compareResult = sRoot1.element.compareTo(sRoot2.element);
+    	
+    	if(compareResult != 0) return false;
+    	if(!equals(sRoot1.left, sRoot2.left)) return false;
+    	if(!equals(sRoot1.right, sRoot2.right)) return false;
+    	
+    	return true;
+    }
+    
     // Return number of levels in the tree.  (An empty tree has 0 levels.)
     // Pre:   tree is a valid BST<> object
     // Post:  the binary tree is unchanged
