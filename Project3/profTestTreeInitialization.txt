@@ -1,0 +1,11 @@
+[ 0] checkTreeInitialization results:
+[ 0]   Creating a new prQuadTree with world boundaries:
+[ 0]     xMin:  0
+[ 0]     xMax:  32768
+[ 0]     yMin:  0
+[ 0]     yMax:  32768
+[10]   prQuadTree root was OK.
+[10]   prQuadTree xMin was OK.
+[10]   prQuadTree xMax was OK.
+[10]   prQuadTree yMin was OK.
+[10]   prQuadTree yMax was OK.

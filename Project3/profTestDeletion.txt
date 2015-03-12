@@ -1,0 +1,159 @@
+[ 0] checkDeletion() results:
+[ 0]     Building a tree for testing...(if checkInsertion() failed this should fail also)
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]       Inserting value: null
+[ 0]     Resulting tree:
+[ 0]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
+[ 0]    Deleting value: null
+[ 0]   Bummer: delete() returned false.
+[ 0]   Resulting tree:
+[ 2]  Empty tree.
